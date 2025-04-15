@@ -44,34 +44,63 @@ boost_deps()
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "099a9fb96a376ccbbb7d291ed4ecbdfd42f6bc822ab77ae6f1b5cb9e914e94fa",
+    sha256 = "6734a719993b1ba4ebe9806e853864395a8d3968ad27f9dd759c196b3eb3abe8",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.35.0/rules_go-v0.35.0.zip",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.35.0/rules_go-v0.35.0.zip",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.45.1/rules_go-v0.45.1.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.45.1/rules_go-v0.45.1.zip",
     ],
 )
 
-git_repository(
+http_archive(
     name = "bazel_gazelle",
-    commit = "3ea1d64d6fe943dac06c341f9a265472bb99acd7",  # 0.24.0
-    remote = "https://github.com/bazelbuild/bazel-gazelle.git",
-    shallow_since = "1633971621 -0400",
+    integrity = "sha256-12v3pg/YsFBEQJDfooN6Tq+YKeEWVhjuNdzspcvfWNU=",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.37.0/bazel-gazelle-v0.37.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.37.0/bazel-gazelle-v0.37.0.tar.gz",
+    ],
 )
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
-go_rules_dependencies()
+go_repository(
+    name = "com_github_vmihailenco_tagparser_v2",
+    importpath = "github.com/vmihailenco/tagparser/v2",
+    sum = "h1:y09buUbR+b5aycVFQs/g70pqKVZNBmxwAhO7/IwNM9g=",
+    version = "v2.0.0",
+)
 
-go_register_toolchains(version = "1.19.2")
+go_repository(
+    name = "com_github_facebookgo_clock",
+    importpath = "github.com/facebookgo/clock",
+    sum = "h1:yDWHCSQ40h88yih2JAcL6Ls/kVkSE8GFACTGVnMPruw=",
+    version = "v0.0.0-20150410010913-600d898af40a",
+)
 
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+go_repository(
+    name = "com_github_facebookgo_limitgroup",
+    importpath = "github.com/facebookgo/limitgroup",
+    sum = "h1:IeaD1VDVBPlx3viJT9Md8if8IxxJnO+x0JCGb054heg=",
+    version = "v0.0.0-20150612190941-6abd8d71ec01",
+)
 
-gazelle_dependencies()
+go_repository(
+    name = "com_github_vmihailenco_msgpack_v5",
+    importpath = "github.com/vmihailenco/msgpack/v5",
+    sum = "h1:5gO0H1iULLWGhs2H5tbAHIZTV8/cYafcFOr9znI5mJU=",
+    version = "v5.3.5",
+)
 
 load(
     "//tools/build_defs:go_externals.bzl",
     "go_externals",
 )
+
+go_rules_dependencies()
+
+go_register_toolchains(version = "1.21.3")
+
+gazelle_dependencies()
 
 go_externals()
 
