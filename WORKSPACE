@@ -68,6 +68,12 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 gazelle_dependencies()
 
+go_repository(
+    name = "org_golang_x_sys",
+    importpath = "golang.org/x/sys",
+    commit = "33540a1f603772f9d4b761f416f5c10dade23e96",
+)
+
 load(
     "//tools/build_defs:go_externals.bzl",
     "go_externals",
