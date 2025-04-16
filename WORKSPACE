@@ -64,7 +64,7 @@ go_rules_dependencies()
 
 go_register_toolchains(version = "1.19.2")
 
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "git_repository")
 
 gazelle_dependencies()
 
